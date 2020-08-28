@@ -11,7 +11,7 @@ void UpdateVariables()
 static Handle serverField()
 {
     char result[256];
-    Format(result, sizeof(result), "A new record has been set in %s", sServerName);
+    Format(result, sizeof(result), "A new record has been set in %s!", sServerName);
     return json_string(result);
 }
 static Handle thumbnail()
@@ -38,7 +38,8 @@ static Handle playerField(int client)
     Format(value, sizeof(value), "[%s](%s)", username, userSteamID);
 
     json_object_set_new(result, "value", json_string(value));
-
+    
+    json_object_set_new(result, "inline", json_boolean(true));
     return result;
 }
 static Handle mapField()
