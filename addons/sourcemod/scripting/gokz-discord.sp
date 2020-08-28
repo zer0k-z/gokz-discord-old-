@@ -59,7 +59,7 @@ public void GOKZ_LR_OnTimeProcessed(
 {
 	if (rank == 1 || rankPro == 1)
 	{
-		static char message[4096];
+		static char message[16384];
 		DiscordFormatNewTime(message, sizeof(message), client, course, mode, style, runTime, teleportsUsed);
 		DiscordSendMessage(message);
 	}

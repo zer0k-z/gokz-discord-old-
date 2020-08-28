@@ -18,7 +18,7 @@ static Handle thumbnail()
 {
     Handle result = json_object();
     char url[128];
-    Format(url,sizeof(url), "https://d2u7y93d5eagqt.cloudfront.net/mapImages/thumbs/tn_%s", sMapName);
+    Format(url,sizeof(url), "https://d2u7y93d5eagqt.cloudfront.net/mapImages/thumbs/tn_%s.jpg", sMapName);
     json_object_set_new(result, "url", json_string(url));
     return result;
 }
@@ -119,7 +119,7 @@ void DiscordFormatNewTime(char[] message,
     json_object_set_new(h_embed, "color", json_integer(11645416));
 
     // Thumbnails
-    json_object_set_new(h_obj, "thumbnail", thumbnail())
+    json_object_set_new(h_embed, "thumbnail", thumbnail())
     // Fields
     json_array_append_new(h_fields, playerField(client));
     json_array_append_new(h_fields, mapField());
@@ -127,6 +127,8 @@ void DiscordFormatNewTime(char[] message,
     json_array_append_new(h_fields, runtypeField(mode, style));
     json_array_append_new(h_fields, runtimeField(runTime));
     json_array_append_new(h_fields, teleportsField(teleports));
+    
+    
 
     // Insert fields to response
     json_object_set_new(h_embed, "fields", h_fields);

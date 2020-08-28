@@ -33,4 +33,4 @@ If any feature is highly requested, I will try to work on it.
 If you have any question, mention me zer0.k#2613 or go on the [my Discord channel](https://discord.gg/d79CR3M). Or send me a message through Steam, that works too.
 
 ---
-Special thanks to zealain for answering all of my dumb questions and Zach47 for the thumbnail server.
+Special thanks to zealain for answering all of my dumb questions, Ruto for fixing all of my dumb errors and Zach47 for the thumbnail server.

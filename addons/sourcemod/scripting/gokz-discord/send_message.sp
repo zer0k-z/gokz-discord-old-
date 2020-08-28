@@ -47,7 +47,7 @@ bool GetWebHook(const char[] sWebhook, char[] sUrl, int iLength)
 }
 
 // Storing and bSending functions
-void DiscordSendMessage(char sMessage[4096])
+void DiscordSendMessage(char sMessage[16384])
 {
 	char sUrl[512];
 	if(!GetWebHook("Webhook", sUrl, sizeof(sUrl)))
@@ -57,13 +57,13 @@ void DiscordSendMessage(char sMessage[4096])
 	}   
 	char sWebhook[64];
 	
-	Format(sWebhook,sizeof(sWebhook),"test");
+	Format(sWebhook,sizeof(sWebhook),"Webhook");
 	StoreMsg(sWebhook, sMessage);
 
 }
 
 
-void StoreMsg(char sWebhook[64], char sMessage[4096])
+void StoreMsg(char sWebhook[64], char sMessage[16384])
 {
 	char sUrl[512];
 	if(!GetWebHook(sWebhook, sUrl, sizeof(sUrl)))
@@ -100,11 +100,17 @@ void SendNextMsg()
 	char sWebhook[64]
 	aWebhook.GetString(0, sWebhook, sizeof(sWebhook));
 	
-	char sMessage[4096];
+	char sMessage[16384];
 	aMsg.GetString(0, sMessage, sizeof(sMessage));
 	
 	char sUrl[512];
-	
+	if(!GetWebHook(sWebhook, sUrl, sizeof(sUrl)))
+	{
+		LogError("Webhook config not found or invalid! Webhook: %s Url: %s", sWebhook, sUrl);
+		LogError("Message: %s", sMessage);
+		return;
+	}
+
 	Handle hRequest = SteamWorks_CreateHTTPRequest(k_EHTTPMethodPOST, sUrl);
 	if(!hRequest || !SteamWorks_SetHTTPCallbacks(hRequest, view_as<SteamWorksHTTPRequestCompleted>(OnRequestComplete)) 
 				|| !SteamWorks_SetHTTPRequestRawPostBody(hRequest, "application/json", sMessage, strlen(sMessage))
@@ -135,7 +141,7 @@ int OnRequestComplete(Handle hRequest, bool bFailed, bool bRequestSuccessful, EH
 	// Wrong msg format, API doesn't like it
 	else if(eStatusCode == k_EHTTPStatusCode400BadRequest)
 	{
-		char sMessage[4096];
+		char sMessage[16384];
 		aMsg.GetString(0, sMessage, sizeof(sMessage));
 		
 		LogError("[OnRequestComplete] Bad Request! Error Code: [400]. Check your message, the API doesn't like it! Message: \"%s\"", sMessage); 
