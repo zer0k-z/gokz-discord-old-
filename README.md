@@ -4,6 +4,8 @@ An optional module for GOKZ that posts server records to a Discord channel using
 
 [**Examples**](https://i.imgur.com/nkp5CdG.png). You can join [my Discord server](https://discord.gg/d79CR3M) to see them for yourself.
 
+Changelogs can be found [here](https://bitbucket.org/zer0k_z/gokz-discord/wiki/).
+
 ## Installing ##
  * Make sure your server is up to date.
  * Install GOKZ and all the dependencies if you didn't do it yet.
