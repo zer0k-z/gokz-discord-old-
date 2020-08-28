@@ -2,6 +2,8 @@
 
 An optional module for GOKZ that posts server records to a Discord channel using webhooks. 
 
+[**Examples**](https://i.imgur.com/nkp5CdG.png). You can join [my Discord server](https://discord.gg/d79CR3M) to see them for yourself.
+
 ## Installing ##
  * Make sure your server is up to date.
  * Install GOKZ and all the dependencies if you didn't do it yet.
@@ -23,6 +25,7 @@ If your GOKZ server is global, it already has all the required dependencies. Not
 
 ### Missing features ###
  * Support for multiple webhooks
+ * Custom run conditions (PRO/NUB records only, top 5/10/20,...)
  * Support for a custom thumbnail server
  * Easy way to disable the plugin
 
@@ -30,7 +33,7 @@ If any feature is highly requested, I will try to work on it.
 
 ### Problems? ###
 
-If you have any question, mention me zer0.k#2613 or go on the [my Discord channel](https://discord.gg/d79CR3M). Or send me a message through Steam, that works too.
+If you have any question, mention me on Discord @zer0.k#2613. Or send me a message through Steam, that works too.
 
 ---
 Special thanks to zealain for answering all of my dumb questions, Ruto for fixing all of my dumb errors and Zach47 for the thumbnail server.
