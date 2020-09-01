@@ -9,7 +9,8 @@ Changelogs can be found [here](https://bitbucket.org/zer0k_z/gokz-discord/wiki/)
 ## Installing ##
  * Make sure your server is up to date.
  * Install GOKZ and all the dependencies if you didn't do it yet.
- * Download and extract gokz-discord.zip from the ``Download`` tab to ``csgo``
+ * Download and extract gokz-discord-LATEST.zip from the ``Download`` tab to ``csgo``
+ (if you are using gokz-hybrid fork of mine, download ``gokz-discord-hybrid.zip`` instead)
  * Get your webhook URL from your Discord server and replace ``WEBHOOK_URL`` with yours in ``csgo/addons/sourcemod/configs/gokz-discord.cfg``.
 
 ### How do I create a Webhook URL? ###
