@@ -10,7 +10,7 @@ public Plugin myinfo = {
 	name = "GOKZ Discord Webhook", 
 	author = "zer0.k", 
 	description = "Sends map completions/records to a discord channel via webhook", 
-	version = "1.1.0"
+	version = "1.2.0"
 }
 
 // Credit to Zach47 for the thumbnails hosting
@@ -57,7 +57,9 @@ public void GOKZ_LR_OnTimeProcessed(
 	int rankPro, 
 	int maxRankPro)
 {
-	if (rank == 1 || rankPro == 1)
+	bool newSR = (firstTime || pbDiff < 0) && rank == 1;
+	bool newSRPro = (firstTimePro || pbDiffPro < 0) && rankPro == 1;
+	if (newSR || newSRPro)
 	{
 		static char message[16384];
 		DiscordFormatNewTime(message, sizeof(message), client, course, mode, style, runTime, teleportsUsed);
