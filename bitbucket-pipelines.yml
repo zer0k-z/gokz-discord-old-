@@ -1,0 +1,9 @@
+image: i386/alpine:3.9
+clone:
+  depth: full
+pipelines:
+  default:
+    - step:
+        script:
+          - git push --mirror git@github.com:zer0k-z/gokz-discord.git
+
