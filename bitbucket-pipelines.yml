@@ -1,4 +1,4 @@
-image: i386/alpine:3.9
+image: atlassian/default-image:2
 clone:
   depth: full
 pipelines:
