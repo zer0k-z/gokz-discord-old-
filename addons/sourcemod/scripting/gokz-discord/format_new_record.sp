@@ -47,7 +47,12 @@ static Handle mapField()
     Handle result = json_object();
     json_object_set_new(result, "name", json_string("Map"));
     
-    json_object_set_new(result, "value", json_string(sMapName));
+    static char mapURL[128];
+    Format(mapURL, sizeof(mapURL), "http://kzstats.com/maps/%s", sMapName); // Lazy hardcoding, no bonus support yet
+
+    static char value[256];
+    Format(value, sizeof(value), "[%s](%s)", sMapName, mapURL);
+    json_object_set_new(result, "value", json_string(value));
 
     json_object_set_new(result, "inline", json_boolean(true));
 
