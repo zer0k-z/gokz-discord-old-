@@ -7,7 +7,26 @@ void UpdateVariables()
     GetCurrentMapDisplayName(sMapName, sizeof(sMapName));
 }
 
-
+static char[] mapSuffix(int mode)
+{
+    char res[64] = "";
+    if (!strcmp(gC_ModeNames[mode], "kztimer", false))
+    {
+        Format(res, sizeof(res), "?mode=kz_timer");
+        return res;
+    }
+    if (!strcmp(gC_ModeNames[mode], "simplekz", false))
+    {
+        Format(res, sizeof(res), "?mode=kz_simple");
+        return res;
+    }
+    if (!strcmp(gC_ModeNames[mode], "vanilla", false))
+    {
+        Format(res, sizeof(res), "?mode=kz_vanilla");
+        return res;
+    } 
+    return res;
+}
 static Handle serverField()
 {
     char result[256];
@@ -42,13 +61,13 @@ static Handle playerField(int client)
     json_object_set_new(result, "inline", json_boolean(true));
     return result;
 }
-static Handle mapField()
+static Handle mapField(int mode)
 {
     Handle result = json_object();
     json_object_set_new(result, "name", json_string("Map"));
     
     static char mapURL[128];
-    Format(mapURL, sizeof(mapURL), "http://kzstats.com/maps/%s", sMapName); // Lazy hardcoding, no bonus support yet
+    Format(mapURL, sizeof(mapURL), "http://kzstats.com/maps/%s%s", sMapName, mapSuffix(mode)); // Lazy hardcoding, no bonus support yet
 
     static char value[256];
     Format(value, sizeof(value), "[%s](%s)", sMapName, mapURL);
@@ -128,7 +147,7 @@ void DiscordFormatNewTime(char[] message,
     json_object_set_new(h_embed, "thumbnail", thumbnail())
     // Fields
     json_array_append_new(h_fields, playerField(client));
-    json_array_append_new(h_fields, mapField());
+    json_array_append_new(h_fields, mapField(mode));
     json_array_append_new(h_fields, courseField(course));
     json_array_append_new(h_fields, runtypeField(mode, style));
     json_array_append_new(h_fields, runtimeField(runTime));

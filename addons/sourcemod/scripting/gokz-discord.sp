@@ -10,7 +10,7 @@ public Plugin myinfo = {
 	name = "GOKZ Discord Webhook", 
 	author = "zer0.k", 
 	description = "Sends map completions/records to a discord channel via webhook", 
-	version = "1.3.0"
+	version = "1.3.1"
 }
 
 // Credit to Zach47 for the thumbnails hosting
