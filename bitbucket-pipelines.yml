@@ -14,6 +14,7 @@ definitions:
       - wget -q -O - "https://bitbucket.org/kztimerglobalteam/gokz/get/master.tar.gz" | tar x -vzf -
       - cd ./addons/sourcemod/scripting/include      
       - wget -q "https://raw.githubusercontent.com/KyleSanderson/SteamWorks/master/Pawn/includes/SteamWorks.inc"
+      - cd ../../../../
       - cd ./addons/sourcemod/scripting      
       - ./spcomp64 gokz-discord.sp
       - cd ../../../
