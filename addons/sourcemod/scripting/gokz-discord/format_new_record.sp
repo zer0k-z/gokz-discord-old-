@@ -37,7 +37,7 @@ static Handle thumbnail()
 {
     Handle result = json_object();
     char url[128];
-    Format(url,sizeof(url), "https://d2u7y93d5eagqt.cloudfront.net/mapImages/thumbs/tn_%s.jpg", sMapName);
+    Format(url,sizeof(url), "https://github.com/KZGlobalTeam/map-images/raw/public/thumbnails/%s.jpg", sMapName);
     json_object_set_new(result, "url", json_string(url));
     return result;
 }

@@ -13,7 +13,6 @@ public Plugin myinfo = {
 	version = "1.3.1"
 }
 
-// Credit to Zach47 for the thumbnails hosting
 // Credit to zipcore for most of send_message.sp
 
 #include "gokz-discord/format_new_record.sp"
