@@ -11,6 +11,7 @@ definitions:
       - apk update
       - apk add wget gcompat libstdc++
       - apk add --no-cache git
+      - git clone https://zer0k_z@bitbucket.org/kztimerglobalteam/gokz.git
       - cp -r ./gokz/addons .
       - wget -q -O - "http://sourcemod.net/latest.php?os=linux&version=1.10" | tar x -vzf -
       - cd ./addons/sourcemod/scripting/include      
