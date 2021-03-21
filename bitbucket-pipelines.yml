@@ -10,8 +10,9 @@ definitions:
     script:
       - apk update
       - apk add wget gcompat libstdc++
+      - apk add --no-cache git
+      - cp -r gokz/addons .
       - wget -q -O - "http://sourcemod.net/latest.php?os=linux&version=1.10" | tar x -vzf -
-      - wget -q -O - "https://bitbucket.org/kztimerglobalteam/gokz/get/master.tar.gz" | tar x -vzf -
       - cd ./addons/sourcemod/scripting/include      
       - wget -q "https://raw.githubusercontent.com/KyleSanderson/SteamWorks/master/Pawn/includes/SteamWorks.inc"
       - wget -q "https://raw.githubusercontent.com/thraaawn/SMJansson/master/pawn/scripting/include/smjansson.inc"
