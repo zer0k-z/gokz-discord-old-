@@ -26,7 +26,7 @@ pipelines:
         name: GitHub Repository Sync
         script: 
           - apk update && apk upgrade && apk add --no-cache git && apk add --no-cache openssh
-          - git push --mirror git@github.com:zer0k-z/gokz-discord.git
+          - git push --all git@github.com:zer0k-z/gokz-discord.git
   custom:
     upload:
       - step: *compile
