@@ -1,9 +1,48 @@
-image: atlassian/default-image:2
+image: alpine:3.13
 clone:
   depth: full
+
+definitions:
+  step: &compile
+    name: Compile Plugins
+    artifacts:
+      - addons/sourcemod/plugins/gokz-discord.smx
+    script:
+      - apk update
+      - apk add wget gcompat libstdc++
+      - wget -q -O - "http://sourcemod.net/latest.php?os=linux&version=1.10" | tar x -vzf -
+      - cd ./addons/sourcemod/scripting
+      - wget -q -O - "https://bitbucket.org/kztimerglobalteam/gokz/get/master.tar.gz" | tar x -vzf -      
+      - ./spcomp64 gokz-discord.sp
+      - cd ../../../
+      - mv addons/sourcemod/scripting/*.smx addons/sourcemod/plugins
+
 pipelines:
   default:
     - step:
-        script:
+        name: GitHub Repository Sync
+        script: 
+          - apk update && apk upgrade && apk add --no-cache git && apk add --no-cache openssh
           - git push --mirror git@github.com:zer0k-z/gokz-discord.git
+  custom:
+    upload:
+      - step: *compile
+      - step:
+          name: Build Release
+          artifacts:
+            - builds/*
+          script:
+            - apk update
+            - apk add zip
+            - mkdir builds
+            - zip -r builds/GOKZ-discord-latest.zip . -x builds\* *.git* *.md bitbucket-pipelines.yml LICENSE addons/sourcemod/scripting\*            
+      - step:
+          name: Upload Release
+          trigger: manual
+          script:
+            - apk update
+            - apk add curl
+            - curl -X POST --user "${BB_AUTH_STRING}" "https://api.bitbucket.org/2.0/repositories/${BITBUCKET_REPO_OWNER}/${BITBUCKET_REPO_SLUG}/downloads" --form files=@"builds/GOKZ-discord-latest.zip"
+            
+    
 
