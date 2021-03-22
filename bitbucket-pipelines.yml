@@ -2,27 +2,6 @@ image: alpine:3.13
 clone:
   depth: full
 
-definitions:
-  step: &compile
-    name: Compile Plugins
-    artifacts:
-      - addons/sourcemod/plugins/gokz-discord.smx
-    script:
-      - apk update
-      - apk add wget gcompat libstdc++
-      - apk add --no-cache git
-      - git clone https://zer0k_z@bitbucket.org/kztimerglobalteam/gokz.git
-      - cp -r ./gokz/addons .
-      - wget -q -O - "http://sourcemod.net/latest.php?os=linux&version=1.10" | tar x -vzf -
-      - cd ./addons/sourcemod/scripting/include      
-      - wget -q "https://raw.githubusercontent.com/KyleSanderson/SteamWorks/master/Pawn/includes/SteamWorks.inc"
-      - wget -q "https://raw.githubusercontent.com/thraaawn/SMJansson/master/pawn/scripting/include/smjansson.inc"
-      - cd ../../../../
-      - cd ./addons/sourcemod/scripting      
-      - ./spcomp64 gokz-discord.sp
-      - cd ../../../
-      - mv addons/sourcemod/scripting/*.smx addons/sourcemod/plugins
-
 pipelines:
   default:
     - step:
@@ -31,9 +10,27 @@ pipelines:
           - apk update && apk upgrade && apk add --no-cache git && apk add --no-cache openssh
           - git push --all git@github.com:zer0k-z/gokz-discord.git
   custom:
-    upload:
-      - step: *compile
+    upload-main: 
       - step:
+          name: Compile Plugins
+          artifacts:
+            - addons/sourcemod/plugins/gokz-discord.smx
+          script:
+            - apk update
+            - apk add wget gcompat libstdc++
+            - apk add --no-cache git
+            - git clone https://zer0k_z@bitbucket.org/kztimerglobalteam/gokz.git
+            - cp -r ./gokz/addons .
+            - wget -q -O - "http://sourcemod.net/latest.php?os=linux&version=1.10" | tar x -vzf -
+            - cd ./addons/sourcemod/scripting/include      
+            - wget -q "https://raw.githubusercontent.com/KyleSanderson/SteamWorks/master/Pawn/includes/SteamWorks.inc"
+            - wget -q "https://raw.githubusercontent.com/thraaawn/SMJansson/master/pawn/scripting/include/smjansson.inc"
+            - cd ../../../../
+            - cd ./addons/sourcemod/scripting      
+            - ./spcomp64 gokz-discord.sp
+            - cd ../../../
+            - mv addons/sourcemod/scripting/*.smx addons/sourcemod/plugins
+      - step: 
           name: Build Release
           artifacts:
             - builds/*
@@ -42,13 +39,47 @@ pipelines:
             - apk add zip
             - mkdir builds
             - zip -r builds/GOKZ-discord-latest.zip . -x builds\* *.git* *.md bitbucket-pipelines.yml LICENSE addons/sourcemod/scripting\*            
-      - step:
+      - step: 
           name: Upload Release
           trigger: manual
           script:
             - apk update
             - apk add curl
             - curl -X POST --user "${BB_AUTH_STRING}" "https://api.bitbucket.org/2.0/repositories/${BITBUCKET_REPO_OWNER}/${BITBUCKET_REPO_SLUG}/downloads" --form files=@"builds/GOKZ-discord-latest.zip"
-            
-    
+    upload-hybrid: 
+      - step: 
+          name: Compile Plugins
+          artifacts:
+            - addons/sourcemod/plugins/gokz-discord.smx
+          script:
+            - apk update
+            - apk add wget gcompat libstdc++
+            - apk add --no-cache git
+            - git clone https://zer0k_z@bitbucket.org/zer0k_z/gokz-hybrid.git
+            - cp -r ./gokz/addons .
+            - wget -q -O - "http://sourcemod.net/latest.php?os=linux&version=1.10" | tar x -vzf -
+            - cd ./addons/sourcemod/scripting/include      
+            - wget -q "https://raw.githubusercontent.com/KyleSanderson/SteamWorks/master/Pawn/includes/SteamWorks.inc"
+            - wget -q "https://raw.githubusercontent.com/thraaawn/SMJansson/master/pawn/scripting/include/smjansson.inc"
+            - cd ../../../../
+            - cd ./addons/sourcemod/scripting      
+            - ./spcomp64 gokz-discord.sp
+            - cd ../../../
+            - mv addons/sourcemod/scripting/*.smx addons/sourcemod/plugins
+      - step: 
+          name: Build Release
+          artifacts:
+            - builds/*
+          script:
+            - apk update
+            - apk add zip
+            - mkdir builds
+            - zip -r builds/GOKZ-discord-hybrid-latest.zip . -x builds\* *.git* *.md bitbucket-pipelines.yml LICENSE addons/sourcemod/scripting\*            
+      - step: 
+          name: Upload Release
+          trigger: manual
+          script:
+            - apk update
+            - apk add curl
+            - curl -X POST --user "${BB_AUTH_STRING}" "https://api.bitbucket.org/2.0/repositories/${BITBUCKET_REPO_OWNER}/${BITBUCKET_REPO_SLUG}/downloads" --form files=@"builds/GOKZ-discord-hybrid-latest.zip"
 
