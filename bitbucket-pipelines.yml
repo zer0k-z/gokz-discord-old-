@@ -56,7 +56,7 @@ pipelines:
             - apk add wget gcompat libstdc++
             - apk add --no-cache git
             - git clone https://zer0k_z@bitbucket.org/zer0k_z/gokz-hybrid.git
-            - cp -r ./gokz/addons .
+            - cp -r ./gokz-hybrid/addons .
             - wget -q -O - "http://sourcemod.net/latest.php?os=linux&version=1.10" | tar x -vzf -
             - cd ./addons/sourcemod/scripting/include      
             - wget -q "https://raw.githubusercontent.com/KyleSanderson/SteamWorks/master/Pawn/includes/SteamWorks.inc"
